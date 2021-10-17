@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ElectronicWallet.Common\ElectronicWallet.Common.csproj" />
+    <ProjectReference Include="..\ElectronicWallet.Repositories\ElectronicWallet.Repositories.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Profiles\Contracts\" />
+  </ItemGroup>
+
+</Project>
