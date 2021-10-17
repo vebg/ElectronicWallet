@@ -28,8 +28,6 @@ namespace ElectronicWallet.Api.Model.V1
         {
             public const string Create = Base + "/wallets/{userId}";
             public const string AddBalance = Base + "/wallets/{walletId}/users/{userId}/balance";
-
-
         }
 
         public static class UsersWallets
