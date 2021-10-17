@@ -1,3 +1,4 @@
+using ElectronicWallet.Common.Options;
 using ElectronicWallet.Infraestructure.Installers;
 using ElectronicWallet.Infraestructure.Installers.Contracts;
 using ElectronicWallet.Infraestructure.Middlewares;
@@ -34,6 +35,11 @@ namespace ElectronicWallet.Api
             apiInstallers.ForEach(installer => installer.InstallServices(services, Configuration));
             installers.ForEach(installer => installer.InstallServices(services, Configuration));
 
+            services.Configure<JwtOptions>(options =>
+            {
+                Configuration.Bind("Authentication:Jwt", options);
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +64,9 @@ namespace ElectronicWallet.Api
             app.UseAuthorization();
 
             app.UseCors("CorsOptions");
+
+            app.UseMiddleware<JwtMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

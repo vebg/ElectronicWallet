@@ -2,12 +2,15 @@
 using ElectronicWallet.Common;
 using ElectronicWallet.Database.DTO.Request;
 using ElectronicWallet.Services.Contracts;
+using ElectronicWallet.Api.CustomAttributes;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
 namespace ElectronicWallet.Api.Controllers.V1
 {
+    [Authorize]
+    [ApiController]
     public class UserWalletController : ControllerBase
     {
         private readonly IUserWalletService _userWalletService;

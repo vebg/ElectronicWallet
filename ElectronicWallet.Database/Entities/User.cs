@@ -11,10 +11,9 @@ namespace ElectronicWallet.Database.Entities
         public string Gender { get; set; }
         public string Email { get; set; }
         public string AccessToken { get; set; }
+        public string Password { get; set; }
         public DateTime? TokenExpirationDate { get; set; }
         public bool IsActive { get; set; }
-        public string PasswordHash { get; set; }
-        public string Salt { get; set; }
 
         #region Relations
 

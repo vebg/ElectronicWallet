@@ -21,7 +21,7 @@ namespace ElectronicWallet.Services
             try
             {
                 var userSelected = await Repository.FindAsync(x => x.Email.ToLower() == email.ToLower());
-                //var passwordHash = _enqcrytionUtils.EncryptPassword(password, userSelected.Salt);
+                //var passwordHash = EncryptPassword(password, userSelected.Salt);
 
                 /*if(passwordHash.Equals(userSelected.PasswordHash))
                 {

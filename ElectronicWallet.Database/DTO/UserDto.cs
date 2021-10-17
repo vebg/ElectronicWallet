@@ -12,6 +12,6 @@ namespace ElectronicWallet.Database.DTO
         public string AccessToken { get; set; }
         public DateTime? TokenExpirationDate { get; set; }
         public bool IsActive { get; set; }
-        public string PasswordHash { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using ElectronicWallet.Common;
 using ElectronicWallet.Database.DTO;
 using ElectronicWallet.Services.Contracts;
+using ElectronicWallet.Api.CustomAttributes;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -12,17 +13,20 @@ namespace ElectronicWallet.Api.Controllers.V1
     public class UserController : ControllerBase
     {
         private readonly IUserService userService;
+
         public UserController(IUserService _userService)
         {
             userService = _userService;
         }
 
+        [Authorize]
         [HttpGet(ApiRoutes.Users.GetAll)]
         public async Task<ActionResult> GetAll(int? page, int? size)
         {
             return Ok(new ApiResponse<PagedResult<UserDto>>(await userService.GetAllAsync(page ?? 1, size ?? 10)));
         }
 
+        [Authorize]
         [HttpGet(ApiRoutes.Users.Get)]
         public async Task<ActionResult> Get(Guid userId)
         {
@@ -66,6 +70,7 @@ namespace ElectronicWallet.Api.Controllers.V1
             return Ok(new ApiResponse<UserDto>(user));
         }
 
+        [Authorize]
         [HttpPut(ApiRoutes.Users.Update)]
         public async Task<ActionResult> Update(Guid userId, [FromBody] UserDto user)
         {
@@ -105,6 +110,7 @@ namespace ElectronicWallet.Api.Controllers.V1
             });
         }
 
+        [Authorize]
         [HttpDelete(ApiRoutes.Users.Delete)]
         public async Task<ActionResult> Delete(Guid userId)
         {            

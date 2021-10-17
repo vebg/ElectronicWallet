@@ -21,7 +21,6 @@ namespace ElectronicWallet.Infraestructure.Installers
                     Scheme = "Bearer",
                     BearerFormat = "JWT"
                 });
-
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement {
                     {
                         new OpenApiSecurityScheme
