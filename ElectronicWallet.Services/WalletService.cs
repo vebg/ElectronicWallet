@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ElectronicWallet.Entities;
-using ElectronicWallet.Entities.DTO;
+using ElectronicWallet.Database.DTO;
+using ElectronicWallet.Database.Entities;
 using ElectronicWallet.Repositories.Contracts;
 using ElectronicWallet.Services.Contracts;
 

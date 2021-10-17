@@ -7,7 +7,6 @@ namespace ElectronicWallet.Database.EntitiesConfigurations.Profile
     {
         public AutoMapperDefaultProfile(): this("GlobalElectronicWallet")
         {
-
         }
 
         public AutoMapperDefaultProfile(string profileName) : base(profileName)
@@ -20,7 +19,6 @@ namespace ElectronicWallet.Database.EntitiesConfigurations.Profile
             CreateMap<Payment, PaymentDto>().ReverseMap();
             CreateMap<UserWallet, UserWalletDto>().ReverseMap();
             CreateMap<Currency, CurrencyDto>().ReverseMap();
-
         }
     }
 }

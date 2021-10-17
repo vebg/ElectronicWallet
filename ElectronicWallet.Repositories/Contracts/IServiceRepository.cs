@@ -1,4 +1,4 @@
-﻿using ElectronicWallet.Entities;
+﻿using ElectronicWallet.Database.Entities;
 
 namespace ElectronicWallet.Repositories.Contracts
 {
