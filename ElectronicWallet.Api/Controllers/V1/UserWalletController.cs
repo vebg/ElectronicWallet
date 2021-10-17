@@ -14,15 +14,11 @@ namespace ElectronicWallet.Api.Controllers.V1
     public class UserWalletController : ControllerBase
     {
         private readonly IUserWalletService _userWalletService;
-        private readonly IWalletService _walletService;
 
-
-        public UserWalletController(IUserWalletService userWalletService, IWalletService walletService)
+        public UserWalletController(IUserWalletService userWalletService)
         {
             _userWalletService = userWalletService;
-            _walletService = walletService;
         }
-
 
         [HttpGet(ApiRoutes.UsersWallets.GetAll)]
         public async Task<ActionResult> GetUserWalletsByUserId(Guid userId)
@@ -57,42 +53,6 @@ namespace ElectronicWallet.Api.Controllers.V1
                 });
             }
         }
-
-        [HttpPost(ApiRoutes.UsersWallets.AddBalance)]
-        public async Task<ActionResult> AddBalance(Guid userId, Guid walletId, [FromBody] AddBalanceRequest balance)
-        {
-            try
-            {
-                if(balance is null)
-                {
-                    return BadRequest(new GenericResponse
-                    {
-                        Success = false,
-                        Errors = new string[] { "balance could not be added." }
-                    });
-                }
-                var userWallet = await _userWalletService.GetWalletByUserIdAndWalletId(userId, walletId);
-
-                var wallatDto = userWallet.Data;
-
-                wallatDto.Balance += balance.Amount;
-                var response = await _walletService.UpdateAsync(wallatDto);
-
-                if(response)
-                {
-                    return Ok(new GenericResponse());
-                }
-
-                return BadRequest(new GenericResponse(false,errors:new string[] { "balance could not be added." }) );
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new GenericResponse
-                {
-                    Success = false,
-                    Errors = new string[] { "Error" }
-                });
-            }
-        }
+    
     }
 }

@@ -1,5 +1,6 @@
 ﻿using ElectronicWallet.Common;
 using ElectronicWallet.Database.DTO;
+using ElectronicWallet.Database.DTO.Response;
 using ElectronicWallet.Database.Entities;
 
 namespace ElectronicWallet.Database.EntitiesConfigurations.Profile
@@ -29,6 +30,8 @@ namespace ElectronicWallet.Database.EntitiesConfigurations.Profile
             CreateMap<PagedResult<Payment>, PagedResult<PaymentDto>>().ReverseMap();
             CreateMap<PagedResult<UserWallet>, PagedResult<UserWalletDto>> ().ReverseMap();
             CreateMap<PagedResult<Currency>, PagedResult<CurrencyDto>>().ReverseMap();
+
+            CreateMap<UserDto, UserResponse>().ReverseMap();
         }
     }
 }

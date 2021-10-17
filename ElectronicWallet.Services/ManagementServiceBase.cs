@@ -270,13 +270,7 @@ namespace ElectronicWallet.Services
                         x.CreatedAt = entity.CreatedAt;
                     }
                     x.ModifiedBy = entity.ModifiedBy;
-                    x.UpdatedAt = entity.UpdatedAt;
-
-                    if (x.CreatedBy == null) // Updating and creating child object.
-                    {
-                        x.CreatedBy = entity.ModifiedBy;
-                        x.UpdatedAt = entity.UpdatedAt;
-                    }
+                    x.UpdatedAt = entity.UpdatedAt;                   
                     SetAuditoryDataToInternalEntitiesProperties(x, isCreating);
                 });
             }

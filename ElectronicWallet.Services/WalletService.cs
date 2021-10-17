@@ -4,7 +4,9 @@ using ElectronicWallet.Database.DTO;
 using ElectronicWallet.Database.Entities;
 using ElectronicWallet.Repositories.Contracts;
 using ElectronicWallet.Services.Contracts;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ElectronicWallet.Services
@@ -13,9 +15,41 @@ namespace ElectronicWallet.Services
     {
 
         private readonly IUserWalletService _userWalletService;
-        public WalletService(IWalletRepository repository,IMapper mapper, IUserWalletService userWalletService) :base(repository,mapper)
+        private readonly IWalletService _walletService;
+
+        private readonly IUserWalletRepository _userWalletRepository;
+        private readonly IMapper _mapper;
+
+
+        public WalletService(IWalletRepository repository,IMapper mapper, IUserWalletService userWalletService, IUserWalletRepository userWalletRepository) :base(repository,mapper)
         {
             _userWalletService = userWalletService;
+            _userWalletRepository = userWalletRepository;
+            _mapper = mapper;
+        }
+
+        public async Task<GenericResponse> AddBalance(Guid userId, Guid walletId, decimal amount)
+        {
+            try
+            {
+                var userWallet = await _userWalletRepository.Query.Where(x => x.UserId == userId && x.WalletId == walletId).Include(s => s.Wallet).FirstOrDefaultAsync();
+
+                if (userWallet is null)
+                {
+                    return new GenericResponse(false, errors: new string[] { "User don't have wallet." });
+                }
+
+                userWallet.Wallet.Balance += amount;
+                await Repository.CreateAsync(userWallet.Wallet);
+                await Repository.SaveChangesAsync();
+                return new GenericResponse(true);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error {ex}");
+                return new GenericResponse(false, errors: new string[] { "Error." });
+            }
         }
 
         public async Task<GenericResponse> CreateAndAssingWallet(Guid userId, WalletDto request)

@@ -27,13 +27,14 @@ namespace ElectronicWallet.Api.Model.V1
         public static class Wallets
         {
             public const string Create = Base + "/wallets/{userId}";
+            public const string AddBalance = Base + "/wallets/{walletId}/users/{userId}/balance";
+
 
         }
 
         public static class UsersWallets
         {
             public const string GetAll = Base + "/users/{userId}/wallets";
-            public const string AddBalance = Base + "/users/{userId}/wallets/{walletId}/balance";
             public const string Get = Base + "/users/{userId}/wallets/{walletId}";
             // public const string TransferMoney = Base + "/users/{userId}/wallets/{walletId}/transfer";
         }

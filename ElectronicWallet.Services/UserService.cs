@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ElectronicWallet.Common;
 using ElectronicWallet.Database.DTO;
 using ElectronicWallet.Database.Entities;
 using ElectronicWallet.Repositories.Contracts;
@@ -15,6 +16,22 @@ namespace ElectronicWallet.Services
 
         }
 
+        public override Task<PagedResult<UserDto>> GetAllAsync(int page, int size)
+        {
+
+            return base.GetAllAsync(page, size);
+        }
+
+        public override Task<UserDto> CreateAsync(UserDto request)
+        {
+           
+            if(string.IsNullOrEmpty(request.Email))
+            {
+                throw new Exception("Email can't be null");
+            }
+            
+            return base.CreateAsync(request);
+        }
         public async Task<UserDto> GetByEmailAndPassword(string email, string password)
         {
             UserDto user = null;

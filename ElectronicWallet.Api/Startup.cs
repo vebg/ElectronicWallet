@@ -1,4 +1,4 @@
-using ElectronicWallet.Common.Options;
+using ElectronicWallet.Database;
 using ElectronicWallet.Infraestructure.Installers;
 using ElectronicWallet.Infraestructure.Installers.Contracts;
 using ElectronicWallet.Infraestructure.Middlewares;
@@ -35,10 +35,7 @@ namespace ElectronicWallet.Api
             apiInstallers.ForEach(installer => installer.InstallServices(services, Configuration));
             installers.ForEach(installer => installer.InstallServices(services, Configuration));
 
-            services.Configure<JwtOptions>(options =>
-            {
-                Configuration.Bind("Authentication:Jwt", options);
-            });
+            services.AddHttpContextAccessor();
 
         }
 
@@ -46,6 +43,12 @@ namespace ElectronicWallet.Api
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseHttpSecurityHeaderMiddleware();
+            app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseCors("CorsOptions");
+            app.UseAuthorization();
+
+            app.UseMiddleware<JwtMiddleware>();
 
             if (env.IsDevelopment())
             {
@@ -56,16 +59,6 @@ namespace ElectronicWallet.Api
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Api V1");
                 });
             }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseCors("CorsOptions");
-
-            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

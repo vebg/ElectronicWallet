@@ -38,18 +38,18 @@ namespace ElectronicWallet.Api.Controllers.V1
 
             if (login is null)
             {
-                return BadRequest(new ApiResponse<UserDto>()
+                return BadRequest(new GenericResponse<UserDto>()
                 {
-                    Succeeded = false,
+                    Success = false,
                     Errors = new[] { "No data" }
                 });
             }
 
             if (string.IsNullOrEmpty(login.Email) || string.IsNullOrEmpty(login.Password))
             {
-                return BadRequest(new ApiResponse<UserDto>()
+                return BadRequest(new GenericResponse<UserDto>()
                 {
-                    Succeeded = false,
+                    Success = false,
                     Errors = new[] { "Email or password invalid." }
                 });
             }
@@ -57,9 +57,9 @@ namespace ElectronicWallet.Api.Controllers.V1
             var user = await _userService.GetByEmailAndPassword(login.Email, login.Password);
             if(user == null)
             {
-                return BadRequest(new ApiResponse<UserDto>()
+                return BadRequest(new GenericResponse<UserDto>()
                 {
-                    Succeeded = false,
+                    Success = false,
                     Errors = new[] { "Email or password invalid." }
                 });
             }
@@ -68,9 +68,9 @@ namespace ElectronicWallet.Api.Controllers.V1
 
             if (string.IsNullOrEmpty(user.AccessToken))
             {
-                return BadRequest(new ApiResponse<UserDto>()
+                return BadRequest(new GenericResponse<UserDto>()
                 {
-                    Succeeded = false,
+                    Success = false,
                     Errors = new[] { "Error creating the token." }
                 });
             }
@@ -97,9 +97,9 @@ namespace ElectronicWallet.Api.Controllers.V1
             var updated = await _userService.UpdateAsync(User);
             if (!updated)
             {
-                return BadRequest(new ApiResponse<UserDto>
+                return BadRequest(new GenericResponse<UserDto>
                 {
-                    Succeeded = false,
+                    Success = false,
                     Errors = new string[]
                     {
                         "Error closing trying to logout."
@@ -107,9 +107,9 @@ namespace ElectronicWallet.Api.Controllers.V1
                 });
             }
 
-            return Ok(new ApiResponse<UserDto>
+            return Ok(new GenericResponse<UserDto>
             {
-                Succeeded = true
+                Success = true
             });
         }
 

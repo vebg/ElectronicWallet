@@ -16,6 +16,7 @@ namespace ElectronicWallet.Api.Controllers.V1
     {
         private readonly IWalletService _welletService;
         private readonly IUserService _userService;
+
         private const decimal DEFAULT_BALANCE = 500;
 
         public WalletController(IWalletService welletService, IUserService userService)
@@ -65,6 +66,38 @@ namespace ElectronicWallet.Api.Controllers.V1
                 return BadRequest(new GenericResponse { 
                     Success = false,
                     Errors = new string [] { ex.Message }
+                });
+            }
+        }
+
+        [HttpPost(ApiRoutes.Wallets.AddBalance)]
+        public async Task<ActionResult> AddBalance(Guid walletId, Guid userId, [FromBody] AddBalanceRequest balance)
+        {
+            try
+            {
+                if (balance is null)
+                {
+                    return BadRequest(new GenericResponse
+                    {
+                        Success = false,
+                        Errors = new string[] { "balance could not be added." }
+                    });
+                }
+                var userWallet = await _welletService.AddBalance(userId, walletId, balance.Amount);
+
+                if (userWallet.Success)
+                {
+                    return Ok(new GenericResponse());
+                }
+
+                return BadRequest(new GenericResponse(false, errors: new string[] { "balance could not be added." }));
+            }
+            catch (Exception)
+            {
+                return BadRequest(new GenericResponse
+                {
+                    Success = false,
+                    Errors = new string[] { "Error" }
                 });
             }
         }

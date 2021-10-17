@@ -1,5 +1,10 @@
 ﻿using ElectronicWallet.Database.Entities;
+using ElectronicWallet.Database.Seeders;
+using ElectronicWallet.Database.Seeders.Contracts;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+
 namespace ElectronicWallet.Database
 {
     public class ElectronicWalletContext: DbContext

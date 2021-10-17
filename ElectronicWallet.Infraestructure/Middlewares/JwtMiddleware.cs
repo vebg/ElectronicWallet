@@ -17,7 +17,7 @@ namespace ElectronicWallet.Infraestructure.Middlewares
         private readonly RequestDelegate _next;
         private readonly JwtOptions _jwtOptions;
 
-        public JwtMiddleware(RequestDelegate next,IOptions<JwtOptions> JwtOptions)
+        public JwtMiddleware(RequestDelegate next, IOptions<JwtOptions> JwtOptions)
         {
             _next = next;
             _jwtOptions = JwtOptions.Value;
@@ -55,17 +55,14 @@ namespace ElectronicWallet.Infraestructure.Middlewares
                 UserType userType = (UserType)Enum.Parse(typeof(UserType), jwtToken.Audiences.First());
 
                 // attach user to context on successful jwt validation
-                    var user = await userService.GetAsync(x => x.Id == id);
+                var user = await userService.GetAsync(x => x.Id == id);
 
-                    if (!user.AccessToken.Equals(token))
-                        throw new ArgumentException($"Invalid token. User = {id}, Token = {token}", "Access Token");
+                if (!user.AccessToken.Equals(token))
+                    throw new ArgumentException($"Invalid token. User = {id}, Token = {token}", "Access Token");
 
-                    if (!user.IsActive)
-                        throw new Exception($"Inactivated user. User = {id}");
-
-                    context.Items["User"] = user;                
+                context.Items["User"] = user;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // do nothing if jwt validation fails
                 // user is not attached to context so request won't have access to secure routes
