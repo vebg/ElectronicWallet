@@ -1,5 +1,6 @@
 ﻿using ElectronicWallet.Database;
-using ElectronicWallet.Entities;
+using ElectronicWallet.Database.Entities;
+
 using ElectronicWallet.Repositories.Contracts;
 
 namespace ElectronicWallet.Repositories

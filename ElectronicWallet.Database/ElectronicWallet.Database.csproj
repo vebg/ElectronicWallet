@@ -24,4 +24,8 @@
     <Folder Include="Contracts\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ElectronicWallet.Common\ElectronicWallet.Common.csproj" />
+  </ItemGroup>
+
 </Project>

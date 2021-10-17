@@ -1,4 +1,4 @@
-﻿using ElectronicWallet.Repositories.Model;
+﻿using ElectronicWallet.Common;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;

@@ -6,9 +6,9 @@ using ElectronicWallet.Services.Contracts;
 
 namespace ElectronicWallet.Services
 {
-    public class CurrencyService: ManagementServiceBase<CurrencyDto, Currency>, ICurrencyService
+    public class PaymentService : ManagementServiceBase<PaymentDto, Payment>, IPaymentService
     {
-        public CurrencyService(ICurrencyRepository repository,IMapper mapper):base(repository,mapper)
+        public PaymentService(IPaymentRepository repository,IMapper mapper):base(repository,mapper)
         {
 
         }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace ElectronicWallet.Database.DTO
 {
@@ -14,8 +13,5 @@ namespace ElectronicWallet.Database.DTO
         public DateTime? TokenExpirationDate { get; set; }
         public bool IsActive { get; set; }
         public string PasswordHash { get; set; }
-        public string Salt { get; set; }
-
-        
     }
 }

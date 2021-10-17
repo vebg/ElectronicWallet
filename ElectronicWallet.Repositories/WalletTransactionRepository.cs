@@ -4,9 +4,9 @@ using ElectronicWallet.Repositories.Contracts;
 
 namespace ElectronicWallet.Repositories
 {
-    public class UserWalletRepository: RepositoryBase<UserWallet>, IUserWalletRepository
+    public class WalletTransactionRepository : RepositoryBase<WalletTransaction>, IWalletTransactionRepository
     {
-        public UserWalletRepository(ElectronicWalletContext context): base (context)
+        public WalletTransactionRepository(ElectronicWalletContext context): base (context)
         {
 
         }

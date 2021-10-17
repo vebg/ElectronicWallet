@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace ElectronicWallet.Repositories.Model
+namespace ElectronicWallet.Common
 {
     public class PagedResult<T> where T : class
     {

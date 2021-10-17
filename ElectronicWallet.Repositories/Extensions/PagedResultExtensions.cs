@@ -1,4 +1,4 @@
-﻿using ElectronicWallet.Repositories.Model;
+﻿using ElectronicWallet.Common;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;

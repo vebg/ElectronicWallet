@@ -10,6 +10,10 @@ namespace ElectronicWallet.Database.DTO
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
 
-        
+        #region Relations
+
+        public ICollection<OrderDto> Orders { get; set; }
+
+        #endregion
     }
 }

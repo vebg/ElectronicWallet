@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ElectronicWallet.Database.DTO
 {
@@ -9,6 +10,12 @@ namespace ElectronicWallet.Database.DTO
         public string Abbreviation { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+
+        #region Relations
+
+        public ICollection<WalletDto> Wallets { get; set; }
+
+        #endregion
 
     }
 }

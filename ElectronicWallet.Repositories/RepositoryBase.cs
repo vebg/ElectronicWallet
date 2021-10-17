@@ -1,8 +1,8 @@
-﻿using ElectronicWallet.Database;
-using ElectronicWallet.Entities;
+﻿using ElectronicWallet.Database.Entities;
+using ElectronicWallet.Database;
 using ElectronicWallet.Repositories.Contracts;
 using ElectronicWallet.Repositories.Extensions;
-using ElectronicWallet.Repositories.Model;
+using ElectronicWallet.Common;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

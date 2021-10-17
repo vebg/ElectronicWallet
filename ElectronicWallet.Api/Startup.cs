@@ -1,13 +1,11 @@
-using ElectronicWallet.Database;
 using ElectronicWallet.Infraestructure.Installers;
 using ElectronicWallet.Infraestructure.Installers.Contracts;
+using ElectronicWallet.Infraestructure.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using System;
 using System.Linq;
 
@@ -21,7 +19,6 @@ namespace ElectronicWallet.Api
         }
 
         public IConfiguration Configuration { get; }
-        private const string dbNAme = "ElectronictWallet";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -42,9 +39,16 @@ namespace ElectronicWallet.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseHttpSecurityHeaderMiddleware();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Api V1");
+                });
             }
 
             app.UseHttpsRedirection();
@@ -53,6 +57,7 @@ namespace ElectronicWallet.Api
 
             app.UseAuthorization();
 
+            app.UseCors("CorsOptions");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

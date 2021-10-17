@@ -6,7 +6,7 @@ using ElectronicWallet.Services.Contracts;
 
 namespace ElectronicWallet.Services
 {
-    public class WalletTransactionService : ManegementServiceBase<WalletTransactionDto, WalletTransaction>, IWalletTransactionService
+    public class WalletTransactionService : ManagementServiceBase<WalletTransactionDto, WalletTransaction>, IWalletTransactionService
     {
         public WalletTransactionService(IWalletTransactionRepository repository,IMapper mapper):base(repository,mapper)
         {
