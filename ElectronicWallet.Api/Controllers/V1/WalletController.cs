@@ -1,6 +1,7 @@
 ﻿using ElectronicWallet.Api.Model.V1;
 using ElectronicWallet.Common;
 using ElectronicWallet.Database.DTO;
+using ElectronicWallet.Database.DTO.Request;
 using ElectronicWallet.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,6 +14,7 @@ namespace ElectronicWallet.Api.Controllers.V1
     {
         private readonly IWalletService _welletService;
         private readonly IUserService _userService;
+        private const decimal DEFAULT_BALANCE = 500;
 
         public WalletController(IWalletService welletService, IUserService userService)
         {
@@ -20,8 +22,8 @@ namespace ElectronicWallet.Api.Controllers.V1
             _userService = userService;
         }
 
-        [HttpGet(ApiRoutes.Wallets.Create)]
-        public async Task<ActionResult> Create(Guid userId, [FromBody] WalletDto request)
+        [HttpPost(ApiRoutes.Wallets.Create)]
+        public async Task<ActionResult> Create(Guid userId, [FromBody] WalletRequest request)
         {
             try
             {
@@ -44,7 +46,15 @@ namespace ElectronicWallet.Api.Controllers.V1
                         Errors = new string[] { "Error try again." }
                     });
                 }
-                var response = await _welletService.CreateAndAssingWallet(userId, request);
+
+                var walletDto = new WalletDto
+                {
+                    Balance = DEFAULT_BALANCE, //default
+                    Name = request.Name,
+                    CurrencyId = request.CurrencyId
+                };
+
+                var response = await _welletService.CreateAndAssingWallet(userId, walletDto);
                 return Ok(response);
 
             }

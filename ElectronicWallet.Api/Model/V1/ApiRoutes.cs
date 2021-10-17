@@ -32,9 +32,9 @@ namespace ElectronicWallet.Api.Model.V1
 
         public static class UsersWallets
         {
-            public const string Get = Base + "/users/{userId}/wallets";
+            public const string GetAll = Base + "/users/{userId}/wallets";
             public const string AddBalance = Base + "/users/{userId}/wallets/{walletId}/balance";
-            public const string GetBalance = Base + "/users/{userId}/wallets/{walletId}/balance";
+            public const string Get = Base + "/users/{userId}/wallets/{walletId}";
             // public const string TransferMoney = Base + "/users/{userId}/wallets/{walletId}/transfer";
         }
 /*

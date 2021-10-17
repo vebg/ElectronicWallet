@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace ElectronicWallet.Database.DTO
 {
@@ -10,15 +9,8 @@ namespace ElectronicWallet.Database.DTO
         public decimal Balance { get; set; }
         public string Name { get; set; }
         public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
 
         #region Relations
-
-        public ICollection<PaymentDto> Payments { get; set; }
-        public ICollection<UserWalletDto> UsersWallets { get; set; }
-        public ICollection<WalletTransactionDto> WalletTransactions { get; set; }
-
-        public CurrencyDto Currency { get; set; }
         #endregion
 
     }

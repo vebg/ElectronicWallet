@@ -29,7 +29,7 @@ namespace ElectronicWallet.Services
                 var userWallet = new UserWalletDto
                 {
                     UserId = userId,
-                    WalletId = request.Id
+                    WalletId = entity.Id
                 };
 
                 await _userWalletService.CreateAsync(userWallet);

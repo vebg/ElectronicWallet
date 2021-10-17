@@ -10,7 +10,7 @@ namespace ElectronicWallet.Services.Contracts
     public interface IUserWalletService : IManagementServiceBase<UserWalletDto, UserWallet>
     {
         public Task<GenericResponse<List<WalletDto>>> GetWalletsByUserId(Guid userId);
-        public Task<GenericResponse<WalletDto>> GetBalanceByUserIdAndWalletId(Guid userId, Guid walletId);
+        public Task<GenericResponse<WalletDto>> GetWalletByUserIdAndWalletId(Guid userId, Guid walletId);
 
     }
 }

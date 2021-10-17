@@ -21,7 +21,7 @@ namespace ElectronicWallet.Api.Controllers.V1
         }
 
 
-        [HttpGet(ApiRoutes.UsersWallets.Get)]
+        [HttpGet(ApiRoutes.UsersWallets.GetAll)]
         public async Task<ActionResult> GetUserWalletsByUserId(Guid userId)
         {
             try
@@ -38,12 +38,12 @@ namespace ElectronicWallet.Api.Controllers.V1
             }
         }
 
-        [HttpGet(ApiRoutes.UsersWallets.GetBalance)]
+        [HttpGet(ApiRoutes.UsersWallets.Get)]
         public async Task<ActionResult> GetBalance(Guid userId,Guid walletId)
         {
             try
             {
-                return Ok(await _userWalletService.GetBalanceByUserIdAndWalletId(userId, walletId));
+                return Ok(await _userWalletService.GetWalletByUserIdAndWalletId(userId, walletId));
             }
             catch (Exception ex)
             {
@@ -68,9 +68,9 @@ namespace ElectronicWallet.Api.Controllers.V1
                         Errors = new string[] { "balance could not be added." }
                     });
                 }
-                var userWallet = await _userWalletService.GetAsync(x => x.WalletId == walletId && x.UserId == userId);
+                var userWallet = await _userWalletService.GetWalletByUserIdAndWalletId(userId, walletId);
 
-                var wallatDto = userWallet.Wallet;
+                var wallatDto = userWallet.Data;
 
                 wallatDto.Balance += balance.Amount;
                 var response = await _walletService.UpdateAsync(wallatDto);

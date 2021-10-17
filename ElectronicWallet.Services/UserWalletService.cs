@@ -15,23 +15,26 @@ namespace ElectronicWallet.Services
     public class UserWalletService: ManagementServiceBase<UserWalletDto, UserWallet>, IUserWalletService
     {
         IUserWalletRepository _userWalletRepository;
+        IMapper _mapper;
+
         public UserWalletService(IUserWalletRepository repository,IMapper mapper):base(repository,mapper)
         {
             _userWalletRepository = repository;
+            _mapper = mapper;
         }
 
-        public async Task<GenericResponse<WalletDto>> GetBalanceByUserIdAndWalletId(Guid userId, Guid walletId)
+        public async Task<GenericResponse<WalletDto>> GetWalletByUserIdAndWalletId(Guid userId, Guid walletId)
         {
             try
             {
-                var userWallet = await _userWalletRepository.FindAsync(x => x.UserId == userId && x.WalletId == walletId);
+                var userWallet = await _userWalletRepository.Query.Where(x => x.UserId == userId && x.WalletId == walletId).Include(s => s.Wallet).FirstOrDefaultAsync();
 
                 if (userWallet is null)
                 {
                     return new GenericResponse<WalletDto>(false, errors: new string[] { "User don't have wallet." });
                 }
 
-                var walletDto = Mapper.Map<WalletDto>(userWallet);
+                var walletDto = _mapper.Map<WalletDto>(userWallet.Wallet);
                 return new GenericResponse<WalletDto>(walletDto);
             }
             catch (Exception ex)
