@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Contracts\" />
+    <Folder Include="DTO\" />
   </ItemGroup>
 
 </Project>

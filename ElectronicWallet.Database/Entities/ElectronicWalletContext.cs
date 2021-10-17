@@ -1,6 +1,5 @@
-﻿using ElectronicWallet.Entities;
-using Microsoft.EntityFrameworkCore;
-namespace ElectronicWallet.Database
+﻿using Microsoft.EntityFrameworkCore;
+namespace ElectronicWallet.Database.Entities
 {
     public class ElectronicWalletContext: DbContext
     {
