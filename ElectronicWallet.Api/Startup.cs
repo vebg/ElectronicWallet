@@ -1,16 +1,15 @@
+using ElectronicWallet.Database;
+using ElectronicWallet.Infraestructure.Installers;
+using ElectronicWallet.Infraestructure.Installers.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ElectronicWallet.Api
 {
@@ -22,16 +21,22 @@ namespace ElectronicWallet.Api
         }
 
         public IConfiguration Configuration { get; }
+        private const string dbNAme = "ElectronictWallet";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var apiInstallers = typeof(DataInstaller).Assembly.ExportedTypes.Where(x =>
+                    typeof(IInstaller).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).Select(Activator.CreateInstance)
+                .Cast<IInstaller>().ToList();
 
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ElectronicWallet.Api", Version = "v1" });
-            });
+            var installers = typeof(Startup).Assembly.ExportedTypes.Where(x =>
+                    typeof(IInstaller).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).Select(Activator.CreateInstance)
+                .Cast<IInstaller>().ToList();
+
+            apiInstallers.ForEach(installer => installer.InstallServices(services, Configuration));
+            installers.ForEach(installer => installer.InstallServices(services, Configuration));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,8 +45,6 @@ namespace ElectronicWallet.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ElectronicWallet.Api v1"));
             }
 
             app.UseHttpsRedirection();

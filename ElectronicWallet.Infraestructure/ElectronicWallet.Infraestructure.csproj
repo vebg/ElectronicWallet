@@ -4,4 +4,15 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ElectronicWallet.Common\ElectronicWallet.Common.csproj" />
+    <ProjectReference Include="..\ElectronicWallet.Database\ElectronicWallet.Database.csproj" />
+    <ProjectReference Include="..\ElectronicWallet.Repositories\ElectronicWallet.Repositories.csproj" />
+    <ProjectReference Include="..\ElectronicWallet.Services\ElectronicWallet.Services.csproj" />
+  </ItemGroup>
+
 </Project>
